@@ -12,7 +12,7 @@ class Player(BasePlayer):
         self._count += 1
         bestMove = None
         bestScore = float('-inf')
-        depth = 2  # Controlled depth for time-performance balance
+        depth = 2  
 
         while self.timeRemaining():
             currentBest = None
@@ -99,19 +99,19 @@ class Player(BasePlayer):
         emptyCount = sum(1 for val in board if val == 0)
         maxTile = max(board)
 
-        # Encourage max tile in corner
+        
         cornerBonus = 10000 if maxTile in [grid[0][0], grid[0][3], grid[3][0], grid[3][3]] else 0
 
-        # Empty space for flexibility
+        
         emptyBonus = emptyCount * 6000
 
-        # Penalize uneven tile differences
+        
         smoothnessPenalty = -self.computeSmoothness(grid) * 3
 
-        # Penalize disordered rows/columns
+        
         disorderPenalty = -self.computeDisorder(grid) * 150
 
-        # Prefer placing large tiles in top-left (position value)
+
         positionScore = self.computePositionalWeight(grid) * 4
 
         return (
